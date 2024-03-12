@@ -51,3 +51,35 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 });
+
+// Get references to the dots
+const dots = document.querySelectorAll('.dot');
+const carouselItems = document.querySelectorAll('.carousel-item');
+
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        // Remove 'active' class from all dots
+        dots.forEach((dot) => {
+            dot.classList.remove('active');
+        });
+        // Add 'active' class to the clicked dot
+        dot.classList.add('active');
+
+        // Scroll to the corresponding carousel item
+        carouselItems[index].scrollIntoView({ behavior: 'smooth' });
+    });
+});
+
+// Add event listener to update active dot based on scroll position
+document.querySelector('.carousel').addEventListener('scroll', () => {
+    const scrollPosition = document.querySelector('.carousel').scrollLeft;
+    const itemWidth = document.querySelector('.carousel-item').offsetWidth;
+    const currentIndex = Math.round(scrollPosition / itemWidth);
+    // Remove 'active' class from all dots
+    dots.forEach((dot) => {
+        dot.classList.remove('active');
+    });
+    // Add 'active' class to the dot corresponding to the current index
+    dots[currentIndex].classList.add('active');
+});
+
